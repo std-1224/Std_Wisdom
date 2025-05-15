@@ -81,13 +81,13 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function fetchTotalPage(query: string) {
-  const filteredPosts = blogPosts.filter(post =>
-    post.title.toLowerCase().includes(query.toLowerCase()) ||
-    post.content.toLowerCase().includes(query.toLowerCase())
-  );
-  return Math.ceil(filteredPosts.length / 12);
-}
+// export async function fetchTotalPage(query: string) {
+//   const filteredPosts = blogPosts.filter(post =>
+//     post.title.toLowerCase().includes(query.toLowerCase()) ||
+//     post.content.toLowerCase().includes(query.toLowerCase())
+//   );
+//   return Math.ceil(filteredPosts.length / 12);
+// }
 
 // export async function fetchLatestPosts() {
 //   const latestPosts = blogPosts.sort(() => Math.random() - 0.5).slice(0, 6);
