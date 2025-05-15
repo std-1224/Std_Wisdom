@@ -4,7 +4,7 @@ import CarouselItem from "@/components/CarouselItem";
 import Analysis from "./sections/Analysis";
 import { PopularLatestPosts } from "./sections/PopularLatestPosts";
 import TopUsers from "./sections/TopUsers";
-import EaseOutAnimation from "@/components/animations/EaseOutAnimation";
+import EaseOutAnimation from "@/components/Animations/EaseOutAnimation";
 import Introduction from "./sections/Introduction";
 export default function Home() {
   return (
