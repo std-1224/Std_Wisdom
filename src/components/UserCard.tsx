@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from '@/app/api/user/user.types';
+import { User } from '@/app/api/user/userTypes';
 
 type UserCardProps = {
   user: User;

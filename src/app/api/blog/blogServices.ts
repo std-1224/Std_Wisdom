@@ -4,6 +4,9 @@ import { collection,where, getDocs, query, orderBy } from 'firebase/firestore'; 
 import admin from 'firebase-admin'; 
 import { adminDb } from '@/lib/firebase_admin'; // Import admin Firestore
 import { db as clientDb } from '@/lib/firebase'; // Import client Firestore
+
+const blogPosts:any[] = [];
+
 export async function GET(request: NextRequest) {
   try {
     // Parse the query parameters from the request URL
@@ -26,7 +29,7 @@ export async function GET(request: NextRequest) {
     const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
     // Fetch user data for each post
-    const userIds = Array.from(new Set(filteredPosts.map(post => post.user_id))); // Get unique user_ids
+    const userIds = Array.from(new Set(filteredPosts.map((post : any) => post.user_id))); // Get unique user_ids
     const usersRef = collection(clientDb, 'users'); // Reference to your 'users' collection
     const usersQuery = query(usersRef, where('uid', 'in', userIds)); // Query for users based on user_ids
     const userSnapshot = await getDocs(usersQuery);
@@ -39,20 +42,20 @@ export async function GET(request: NextRequest) {
 
     // Map posts to include author information
     const results = queryParam
-      ? filteredPosts.filter(post =>
+      ? filteredPosts.filter((post :any )=>
         post.title.toLowerCase().includes(queryParam.toLowerCase()) ||
         post.content.toLowerCase().includes(queryParam.toLowerCase())
-      ).map(post => ({
+      ).map((post : any) => ({
         ...post,
         author: usersData[post.user_id] || { name: 'Unknown', email: '', id: '', avatar: '' } // Add author information
       }))
-      : filteredPosts.map(post => ({
+      : filteredPosts.map((post : any) => ({
         ...post,
         author: usersData[post.user_id] || { name: 'Unknown', email: '', id: '', avatar : '' } // Add author information
       }));
 
     return NextResponse.json({ blogPosts: results.slice(12 * (page - 1), 12 * page), totalPage: Math.ceil(results.length / 12) });
-  } catch (error) {
+  } catch (error:any) {
     console.error('Error in GET handler:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
@@ -75,27 +78,27 @@ export async function POST(request: NextRequest) {
     });
     return NextResponse.json({ message: 'Blog post created successfully!', docId: docRef.id });
 
-  } catch (error) {
+  } catch (error:any) {
     console.log(error)
     return NextResponse.json({ error: 'Error creating blog post', details: error.message });
   }
 }
 
-// export async function fetchTotalPage(query: string) {
-//   const filteredPosts = blogPosts.filter(post =>
-//     post.title.toLowerCase().includes(query.toLowerCase()) ||
-//     post.content.toLowerCase().includes(query.toLowerCase())
-//   );
-//   return Math.ceil(filteredPosts.length / 12);
-// }
+export async function fetchTotalPage(query: string) {
+  const filteredPosts = blogPosts.filter(post =>
+    post.title.toLowerCase().includes(query.toLowerCase()) ||
+    post.content.toLowerCase().includes(query.toLowerCase())
+  );
+  return Math.ceil(filteredPosts.length / 12);
+}
 
-// export async function fetchLatestPosts() {
-//   const latestPosts = blogPosts.sort(() => Math.random() - 0.5).slice(0, 6);
-//   return latestPosts;
-// }
+export async function fetchLatestPosts() {
+  const latestPosts = blogPosts.sort(() => Math.random() - 0.5).slice(0, 6);
+  return latestPosts;
+}
 
-// export async function fetchPopularPosts() {
-//   const popularPosts = blogPosts.sort(() => Math.random() - 0.5).slice(0, 6);
-//   return popularPosts;
-// }
+export async function fetchPopularPosts() {
+  const popularPosts = blogPosts.sort(() => Math.random() - 0.5).slice(0, 6);
+  return popularPosts;
+}
 

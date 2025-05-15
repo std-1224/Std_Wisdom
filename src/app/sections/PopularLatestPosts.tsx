@@ -1,6 +1,6 @@
 import React from "react";
 import PostCard from "@/components/PostCard";
-import { fetchLatestPosts, fetchPopularPosts } from "@/app/api/blog/route";
+import { fetchLatestPosts, fetchPopularPosts } from "@/app/api/blog/blogServices";
 import BlogPost from "../api/blog/blogpost.types";
 import { FaStar, FaClock } from 'react-icons/fa';
 

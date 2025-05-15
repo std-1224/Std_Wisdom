@@ -1,7 +1,7 @@
 import React from "react";
 import UserCard from "@/components/UserCard";
-import { User } from "../api/user/user.types";
-import { fetchTopUsers } from "../api/user/route";
+import { User } from "../api/user/userTypes";
+import { fetchTopUsers } from "../api/user/userServices";
 
 const TopUsers = async () => {
     const topUsres = await fetchTopUsers();

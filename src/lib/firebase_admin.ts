@@ -5,7 +5,7 @@ import { Firestore } from 'firebase-admin/firestore'; // Import Firestore type
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.applicationDefault(),
-    databaseURL: `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseio.com`,
+    databaseURL: `https://${process.env.NEXT_FIREBASE_PROJECT_ID}.firebaseio.com`,
   });
 }
 

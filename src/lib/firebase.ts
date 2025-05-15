@@ -4,19 +4,21 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: process.env.NEXT_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_FIREBASE_APP_ID,
 };
 
+console.log("====++>", process.env)
+
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const storage = getStorage(app);
-const db = getFirestore(app);
+const initApp = initializeApp(firebaseConfig);
+const auth = getAuth(initApp);
+const storage = getStorage(initApp);
+const db = getFirestore(initApp);
 
 // Google Provider
 const googleProvider = new GoogleAuthProvider();
